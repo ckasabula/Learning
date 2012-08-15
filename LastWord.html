@@ -1,0 +1,190 @@
+<!DOCTYPE:HTML>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>          
+<script type="text/javascript">
+function GetLastWord(text) {
+    var match = text.match(/\S\w*$/);
+    return match;
+}
+
+function ProcessRootResult(data, type) {
+    var idRoot = "#" + type;
+    var resultsId = idRoot + "_results";
+    
+    if (data)
+    {
+        var synDataId = idRoot + "_syn";
+        var synResultsId = synDataId + "_results";
+        var antDataId = idRoot + "_ant";
+        var antResultsId = antDataId + "_results";
+        var relDataId = idRoot + "_rel";
+        var relResultsId = relDataId + "_results";
+        var simDataId = idRoot + "_sim";
+        var simResultsId = simDataId + "_results";
+
+        ProcessResult(data.syn, synDataId, synResultsId);
+        ProcessResult(data.ant, antDataId, antResultsId);
+        ProcessResult(data.rel, relDataId, relResultsId);
+        ProcessResult(data.sim, simDataId, simResultsId);
+
+        $(resultsId).show();
+    }
+    else
+    {
+        $(resultsId).hide();
+    }
+}
+
+function ProcessResult(data, dataId, resultsId) {
+    if (data)
+    {
+        $(dataId).html("");
+        $.each(data, function(i, item) {
+            $("<li/>").text(item).appendTo(dataId);
+        });
+        $(resultsId).show();
+    }
+    else
+    {
+        $(resultsId).hide();
+    }
+}
+
+function HideThesaurusResults()
+{
+    $("#noun_results").hide();
+    $("#verb_results").hide();
+    $("#adjective_results").hide();
+}
+
+$(document).ready(function() {
+    HideThesaurusResults();
+    $("#clear").click(function() {
+        $("#text1").val("");
+    });
+    $("#text1").keypress(function(evt) {
+        var key = String.fromCharCode(evt.charCode);
+        var whiteSpace = key.match(/\s/);
+        if (whiteSpace) {
+            var last = GetLastWord(this.value.substr(0, this.selectionEnd));
+            if (last) {
+                $("#last").val(last);
+
+                var url = "http://words.bighugelabs.com/api/2/"
+                        + $("#apikey").val()
+                        + "/"
+                        + last 
+                        + "/json";
+                        
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    dataType : "jsonp",
+                    crossDomain: true,
+                    success: function(data) {
+                        ProcessRootResult(data.noun, "noun");
+                        ProcessRootResult(data.verb, "verb");
+                        ProcessRootResult(data.adjective, "adjective");
+                    },
+                    error : function(xhr, status, errorThrown) {
+                        console.log("Failed to lookup word: " + status);
+                        HideThesaurusResults();
+                    }
+                });
+            }
+        }
+    });
+});
+</script>
+
+<link rel="stylesheet" type="text/css" href="LastWord.css" />
+
+<head>
+<title>Last Word</title>
+</head>
+
+<body>
+<h2>Last Word</h2>
+<div id="left">
+    <p>Enter Big Huge Thesaurus API key here::</p>
+    <textarea id="apikey", autofocus=true></textarea>
+    <p>Enter text here:</p>
+    <textarea id="text1", autofocus=true></textarea>
+    <br clear:left>
+    <input type="button" id="clear", value="Clear"">
+    <br clear:left>
+    <p>Last word:</p>
+    <textarea id="last"", readonly=true></textarea>
+</div>
+<div id="words">
+    <h2>Thesaurus</h2>
+    <div id="noun_results">
+        <h3>Noun</h3>
+        <div id="noun_syn_results">
+            <p><i>Synonyms</i></p>
+            <ul id="noun_syn">
+            </ul>
+        </div>
+        <div id="noun_ant_results">
+            <p><i>Antonyms</i></p>
+            <ul id="noun_ant">
+            </ul>
+        </div>
+        <div id="noun_rel_results">
+            <p><i>Related Terms</i></p>
+            <ul id="noun_rel">
+            </ul>
+        </div>
+        <div id="noun_sim_results">
+            <p><i>Similar Items</i></p>
+            <ul id="noun_sim">
+            </ul>
+        </div>
+    </div>
+    <div id="verb_results">
+        <h3>verb</h3>
+        <div id="verb_syn_results">
+            <p><i>Synonyms</i></p>
+            <ul id="verb_syn">
+            </ul>
+        </div>
+        <div id="verb_ant_results">
+            <p><i>Antonyms</i></p>
+            <ul id="verb_ant">
+            </ul>
+        </div>
+        <div id="verb_rel_results">
+            <p><i>Related Terms</i></p>
+            <ul id="verb_rel">
+            </ul>
+        </div>
+        <div id="verb_sim_results">
+            <p><i>Similar Items</i></p>
+            <ul id="verb_sim">
+            </ul>
+        </div>
+    </div>
+    <div id="adjective_results">
+        <h3>adjective</h3>
+        <div id="adjective_syn_results">
+            <p><i>Synonyms</i></p>
+            <ul id="adjective_syn">
+            </ul>
+        </div>
+        <div id="adjective_ant_results">
+            <p><i>Antonyms</i></p>
+            <ul id="adjective_ant">
+            </ul>
+        </div>
+        <div id="adjective_rel_results">
+            <p><i>Related Terms</i></p>
+            <ul id="adjective_rel">
+            </ul>
+        </div>
+        <div id="adjective_sim_results">
+            <p><i>Similar Items</i></p>
+            <ul id="adjective_sim">
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
