@@ -58,9 +58,16 @@ function HideThesaurusResults()
 
 $(document).ready(function() {
     HideThesaurusResults();
+
+    if (this.cookie != "") {
+        var apiKey = this.cookie.split("=")[1];
+        $("#apikey").val(apikey);
+    }
+
     $("#clear").click(function() {
         $("#text1").val("");
     });
+
     $("#text1").keypress(function(evt) {
         var key = String.fromCharCode(evt.charCode);
         var whiteSpace = key.match(/\s/);
@@ -74,7 +81,7 @@ $(document).ready(function() {
                         + "/"
                         + last 
                         + "/json";
-                        
+
                 $.ajax({
                     url: url,
                     type: "GET",
@@ -93,6 +100,10 @@ $(document).ready(function() {
             }
         }
     });
+    
+    $("#apikey").blur(function() {
+        document.cookie = "apikey=" + $("#apikey").val();
+    });
 });
 </script>
 
@@ -105,7 +116,7 @@ $(document).ready(function() {
 <body>
 <h2>Last Word</h2>
 <div id="left">
-    <p>Enter Big Huge Thesaurus API key here::</p>
+    <p>Enter <a target='_blank' href="http://words.bighugelabs.com/">Big Huge Thesaurus</a> API key here:</p>
     <textarea id="apikey", autofocus=true></textarea>
     <p>Enter text here:</p>
     <textarea id="text1", autofocus=true></textarea>
