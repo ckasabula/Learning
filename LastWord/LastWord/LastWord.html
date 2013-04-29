@@ -1,0 +1,97 @@
+<!DOCTYPE:HTML>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>          
+<script type="text/javascript" src="/LastWord.js"></script>          
+<script src="/scripts/jquery-cookie/jquery.cookie.js"></script>
+
+<link rel="stylesheet" type="text/css" href="LastWord.css" />
+
+<head>
+<title>Last Word</title>
+</head>
+
+<body>
+<h2>Last Word</h2>
+<div id="left">
+    <p>Enter <a target='_blank' href="http://words.bighugelabs.com/">Big Huge Thesaurus</a> API key here:</p>
+    <textarea id="apikey", autofocus=true></textarea>
+    <p>Enter text here:</p>
+    <textarea id="text1", autofocus=true></textarea>
+    <br clear:left>
+    <input type="button" id="clear", value="Clear">
+    <br clear:left>
+    <p>Last word:</p>
+    <textarea id="last", readonly=true></textarea>
+</div>
+<div id="words">
+    <h2>Thesaurus</h2>
+    <div id="noun_results">
+        <h3>Noun</h3>
+        <div id="noun_syn_results">
+            <p><i>Synonyms</i></p>
+            <ul id="noun_syn">
+            </ul>
+        </div>
+        <div id="noun_ant_results">
+            <p><i>Antonyms</i></p>
+            <ul id="noun_ant">
+            </ul>
+        </div>
+        <div id="noun_rel_results">
+            <p><i>Related Terms</i></p>
+            <ul id="noun_rel">
+            </ul>
+        </div>
+        <div id="noun_sim_results">
+            <p><i>Similar Items</i></p>
+            <ul id="noun_sim">
+            </ul>
+        </div>
+    </div>
+    <div id="verb_results">
+        <h3>verb</h3>
+        <div id="verb_syn_results">
+            <p><i>Synonyms</i></p>
+            <ul id="verb_syn">
+            </ul>
+        </div>
+        <div id="verb_ant_results">
+            <p><i>Antonyms</i></p>
+            <ul id="verb_ant">
+            </ul>
+        </div>
+        <div id="verb_rel_results">
+            <p><i>Related Terms</i></p>
+            <ul id="verb_rel">
+            </ul>
+        </div>
+        <div id="verb_sim_results">
+            <p><i>Similar Items</i></p>
+            <ul id="verb_sim">
+            </ul>
+        </div>
+    </div>
+    <div id="adjective_results">
+        <h3>adjective</h3>
+        <div id="adjective_syn_results">
+            <p><i>Synonyms</i></p>
+            <ul id="adjective_syn">
+            </ul>
+        </div>
+        <div id="adjective_ant_results">
+            <p><i>Antonyms</i></p>
+            <ul id="adjective_ant">
+            </ul>
+        </div>
+        <div id="adjective_rel_results">
+            <p><i>Related Terms</i></p>
+            <ul id="adjective_rel">
+            </ul>
+        </div>
+        <div id="adjective_sim_results">
+            <p><i>Similar Items</i></p>
+            <ul id="adjective_sim">
+            </ul>
+        </div>
+    </div>
+</div>
+</body>

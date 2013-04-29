@@ -1,0 +1,110 @@
+# Visual Studio user-specific files
+*.suo
+*.user
+*.sln.docstates
+
+# Visual Studio build results
+[Dd]ebug/
+[Rr]elease/
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.vspscc
+.builds
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+
+# Visual Studio profiler
+*.psess
+*.vsp
+
+# Other Visual Studio outputs
+[Bb]in
+[Oo]bj
+TestResults
+*.Cache
+ClientBin
+stylecop.*
+~$*
+*.dbmdl
+
+# JetBrains ReSharper and dotCover folders/files
+_ReSharper*/
+*.dotCover
+src/.idea*
+
+# Vi swap file
+*.swp
+
+# Mac OSX folders/files
+__MACOSX
+.DS_Store
+.DS_Store?
+
+# Windows thumbnail cache
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# TortoiseGit bogus file
+sys$command
+
+# LiveBall specific ignores
+/packages/*.*
+!/packages/placeholder.txt
+
+/src/packages/*
+/testing/packages/*
+
+/src/Tests.dcvr
+/src/Tests.dcvr.settings
+
+# /src/LiveBall.Web/Admin/Exports/
+/src/LiveBall.Web/Admin/Exports/*
+
+# /src/LiveBall.Web/Admin/Gauges/Temp/
+/src/LiveBall.Web/Admin/Gauges/Temp/*
+
+# /src/LiveBall.Web/Campaigns/
+/src/LiveBall.Web/Campaigns/*
+
+# /src/LiveBall.Web/Global/
+/src/LiveBall.Web/Global/FavIconLib/*
+/src/LiveBall.Web/Global/FileLib/*
+/src/LiveBall.Web/Global/FlashLib/*
+/src/LiveBall.Web/Global/Forms/*
+/src/LiveBall.Web/Global/ImageLib/*
+/src/LiveBall.Web/Global/Misc/*
+/src/LiveBall.Web/Global/Templates/*
+/src/LiveBall.Web/Global/UxPlugins/*
+
+# /src/LiveBall.Web/Templates/
+/src/LiveBall.Web/Templates/*
+
+# /src/LiveBall.Web/TemplatesExport/
+/src/LiveBall.Web/TemplatesExport/*
+
+# /src/LiveBall.Web/TemplatesImport/
+/src/LiveBall.Web/TemplatesImport/undo/*
+/src/LiveBall.Web/TemplatesImport/validation/*
+/src/LiveBall.Web/TemplatesImport/zips/*
+
+# dotless generated css file
+src/LiveBall.Web/Areas/Admin/Content/Styles/pageEditor.min.css
