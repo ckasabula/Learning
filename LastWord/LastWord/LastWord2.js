@@ -1,7 +1,8 @@
 // TODO: move script references here (now in HTML file) - require.js?
-// TODO: swich from _ templates to handlebars/mustash templates
+// TODO: switch from _ templates to handlebars/mustash templates
 // TODO: move templates to separate files
-//<script src="/scripts/jquery-cookie/jquery.cookie.js"></script>
+// TODO: refactor into separate files
+// TODO: try/use http://marionettejs.com/
 
 var LastWord = {
     Models: {},
@@ -68,9 +69,31 @@ LastWord.Views.Text = Backbone.View.extend({
         '<br style="clear:left">' +
         '<p>Last word:</p>' +
         '<textarea id="last" readonly></textarea>'),
+    events: {
+        "click #clear": "onClear",
+        "keypress #text1": "onKeypress"
+    },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
         return this;
+    },
+    onClear: function() {
+        $("#text1").val("");
+    },
+    getLastWord: function(text) {
+        var match = text.match(/\S\w*$/);
+        return match;
+    },
+    onKeypress: function(evt) {
+        var key = String.fromCharCode(evt.charCode);
+        var whiteSpace = key.match(/\s/);
+        if (whiteSpace) {
+            var val = $(evt.target).val();
+            var last = this.getLastWord(val.substr(0, this.selectionEnd));
+            if (last) {
+                this.model.set('lastWord', last);
+            }
+        }
     }
 });
 
