@@ -4,6 +4,12 @@
 // TODO: refactor into separate files
 // TODO: try/use http://marionettejs.com/
 
+// TODO: move this into the app object (w/ move to require.js)
+// use Handlebars-style templating syntax in _.template
+_.templateSettings = {
+    interpolate: /\{\{(.+?)\}\}/g
+};
+
 var LastWord = {
     Models: {},
     Views: {},
@@ -11,15 +17,15 @@ var LastWord = {
     apiKeyView: {},
     apiKeyModel: {},
     textView: {},
+    lastWordView: {},
     lastWordModel: {},
 
     initialize: function () {
         this.apiKeyModel = new LastWord.Models.ApiKey();
         this.apiKeyView = new LastWord.Views.ApiKey({ model: this.apiKeyModel });
         this.lastWordModel = new LastWord.Models.LastWord();
+        this.lastWordView = new LastWord.Views.LastWord({ model: this.lastWordModel });
         this.textView = new LastWord.Views.Text({ model: this.lastWordModel });
-        this.apiKeyView.render();
-        this.textView.render();
     }
 };
 
@@ -45,11 +51,14 @@ LastWord.Views.ApiKey = Backbone.View.extend({
     el: '#apikey_view',
     template: _.template(
         '<p>Enter <a target="_blank" href="http://words.bighugelabs.com/">Big Huge Thesaurus</a> API key here:</p>' +
-        '<textarea id="apikey", autofocus><%= apiKey %></textarea>'),
+        '<textarea id="apikey", autofocus>{{apiKey}}</textarea>'),
     events: {
-        "blur #apikey": "onBlur"
+        'blur #apikey': 'onBlur'
     },
-    render: function() {
+    initialize: function () {
+        this.render();
+    },
+    render: function () {
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     },
@@ -66,15 +75,16 @@ LastWord.Views.Text = Backbone.View.extend({
         '<textarea id="text1" autofocus></textarea>' +
         '<br style="clear:left">' +
         '<input type="button" id="clear" value="Clear">' +
-        '<br style="clear:left">' +
-        '<p>Last word:</p>' +
-        '<textarea id="last" readonly></textarea>'),
+        '<br style="clear:left">'),
     events: {
-        "click #clear": "onClear",
-        "keypress #text1": "onKeypress"
+        'click #clear': 'onClear',
+        'keypress #text1': 'onKeypress'
     },
-    render: function() {
-        this.$el.html(this.template(this.model.toJSON()));
+    initialize: function () {
+        this.render();
+    },
+    render: function () {
+        this.$el.html(this.template());
         return this;
     },
     onClear: function() {
@@ -96,6 +106,22 @@ LastWord.Views.Text = Backbone.View.extend({
         }
     }
 });
+
+LastWord.Views.LastWord = Backbone.View.extend({
+    el: '#lastword_view',
+    template: _.template(
+        '<p>Last word:</p>' +
+        '<textarea id="last" readonly>{{lastWord}}</textarea>'),
+    initialize: function () {
+        this.listenTo(this.model, 'change', this.render);
+        this.render();
+    },
+    render: function () {
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+
 
 $(document).ready(function () {
     LastWord.initialize();
