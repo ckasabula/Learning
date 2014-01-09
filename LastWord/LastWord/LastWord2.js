@@ -19,13 +19,20 @@ var LastWord = {
     textView: {},
     lastWordView: {},
     lastWordModel: {},
+    thesaurusModel: {},
+    thesaurusView: {},
 
     initialize: function () {
         this.apiKeyModel = new LastWord.Models.ApiKey();
         this.apiKeyView = new LastWord.Views.ApiKey({ model: this.apiKeyModel });
+
         this.lastWordModel = new LastWord.Models.LastWord();
         this.lastWordView = new LastWord.Views.LastWord({ model: this.lastWordModel });
+
         this.textView = new LastWord.Views.Text({ model: this.lastWordModel });
+
+        this.thesaurusModel = new LastWord.Models.Thesaurus({ lastWordModel: this.lastWordModel, apiKeyModel: this.apiKeyModel });
+        this.thesaurusView = new LastWord.Views.Thesaurus({ model: this.thesaurusModel });
     }
 };
 
@@ -44,6 +51,25 @@ LastWord.Models.ApiKey = Backbone.Model.extend({
 LastWord.Models.LastWord = Backbone.Model.extend({
     defaults: {
         lastWord: ''
+    }
+});
+
+LastWord.Models.Thesaurus = Backbone.Model.extend({
+    defaults: {
+        apiKeyModel: {},
+        lastWordModel: {}
+    },
+    urlTemplate: _.template('http://words.bighugelabs.com/api/2/{{apiKey}}/{{lastWord}}/json'),
+    initialize: function (options) {
+        this.apiKeyModel = options.apiKeyModel;
+        this.lastWordModel = options.lastWordModel;
+        this.listenTo(this.lastWordModel, 'change', this.onLastWordChange);
+    },
+    onLastWordChange: function() {
+        var urlAttrs = _.extend(this.apiKeyModel.attributes, this.lastWordModel.attributes);
+        var url = this.urlTemplate(_.clone(urlAttrs));
+        var options = { url: url, crossDomain: true, dataType: 'jsonp' };
+        this.fetch(options);
     }
 });
 
@@ -112,6 +138,19 @@ LastWord.Views.LastWord = Backbone.View.extend({
     template: _.template(
         '<p>Last word:</p>' +
         '<textarea id="last" readonly>{{lastWord}}</textarea>'),
+    initialize: function () {
+        this.listenTo(this.model, 'change', this.render);
+        this.render();
+    },
+    render: function () {
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+
+LastWord.Views.Thesaurus = Backbone.View.extend({
+    el: '#thesaurus_view',
+    template: _.template('<h2>Thesaurus</h2>'),
     initialize: function () {
         this.listenTo(this.model, 'change', this.render);
         this.render();
