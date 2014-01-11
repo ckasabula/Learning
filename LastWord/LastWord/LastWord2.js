@@ -1,6 +1,6 @@
 // TODO: move script references here (now in HTML file) - require.js?
 // TODO: switch from _ templates to handlebars/mustash templates
-// TODO: move templates to separate files
+// TODO: move templates to separate files w/ require.js, text.js text!
 // TODO: refactor into separate files
 // TODO: try/use http://marionettejs.com/
 
@@ -150,8 +150,11 @@ LastWord.Views.LastWord = Backbone.View.extend({
 
 LastWord.Views.Thesaurus = Backbone.View.extend({
     el: '#thesaurus_view',
-    template: _.template('<h2>Thesaurus</h2>'),
+    template: function() {
+        return '';
+    },
     initialize: function () {
+        this.template = Handlebars.compile($("#thesaurus-template").html());
         this.listenTo(this.model, 'change', this.render);
         this.render();
     },

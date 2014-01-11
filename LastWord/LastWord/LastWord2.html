@@ -2,8 +2,21 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>          
 <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
 <script src="/scripts/jquery-cookie/jquery.cookie.js"></script>
 <script type="text/javascript" src="/LastWord2.js"></script>          
+
+<script id="thesaurus-template" type="text/x-handlebars-template">
+<h2>Thesaurus</h2>
+{{#if noun}}
+<h3>Noun</h3>
+<div id="noun_syn_results">
+    <p><i>Synonyms</i></p>
+    <ul id="noun_syn">
+    </ul>
+</div>
+{{/if}}
+</script>
 
 <link rel="stylesheet" type="text/css" href="LastWord.css" />
 
