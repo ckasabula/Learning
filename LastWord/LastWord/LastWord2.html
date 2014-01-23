@@ -10,11 +10,48 @@
 <h2>Thesaurus</h2>
 {{#if noun}}
 <h3>Noun</h3>
-<div id="noun_syn_results">
-    <p><i>Synonyms</i></p>
-    <ul id="noun_syn">
-    </ul>
-</div>
+    <div>
+        {{#if noun.syn}}
+            <div>
+            <p><i>Synonyms</i></p>
+            <ul>
+                {{#each noun.syn}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            </div>
+        {{/if}}
+        {{#if noun.ant}}
+            <div>
+            <p><i>Antonyms</i></p>
+            <ul>
+                {{#each noun.ant}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            </div>
+        {{/if}}
+        {{#if noun.rel}}
+            <div>
+            <p><i>Related Terms</i></p>
+            <ul>
+                {{#each noun.rel}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            </div>
+        {{/if}}
+        {{#if noun.sim}}
+            <div>
+            <p><i>Similar Items</i></p>
+            <ul>
+                {{#each noun.sim}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            </div>
+        {{/if}}
+    </div>
 {{/if}}
 </script>
 
@@ -31,5 +68,7 @@
         <div id="text_view"></div>
         <div id="lastword_view"></div>
     </div>
-    <div id="thesaurus_view"></div>
+    <div id="right">
+        <div id="thesaurus_view"></div>
+    </div>
 </body>
