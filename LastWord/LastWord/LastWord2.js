@@ -1,5 +1,4 @@
 // TODO: move script references here (now in HTML file) - require.js?
-// TODO: switch from _ templates to handlebars/mustash templates
 // TODO: move templates to separate files w/ require.js, text.js text!
 // TODO: refactor into separate files
 // TODO: try/use http://marionettejs.com/
@@ -74,14 +73,12 @@ LastWord.Models.Thesaurus = Backbone.Model.extend({
 });
 
 LastWord.Views.ApiKey = Backbone.View.extend({
-    el: '#apikey_view',
-    template: _.template(
-        '<p>Enter <a target="_blank" href="http://words.bighugelabs.com/">Big Huge Thesaurus</a> API key here:</p>' +
-        '<textarea id="apikey", autofocus>{{apiKey}}</textarea>'),
+    el: '#apikey-view',
     events: {
         'blur #apikey': 'onBlur'
     },
     initialize: function () {
+        this.template = Handlebars.compile($("#apikey-view-template").html());
         this.render();
     },
     render: function () {
@@ -95,18 +92,13 @@ LastWord.Views.ApiKey = Backbone.View.extend({
 });
 
 LastWord.Views.Text = Backbone.View.extend({
-    el: '#text_view',
-    template: _.template(
-        '<p>Enter text here:</p>' +
-        '<textarea id="text1" autofocus></textarea>' +
-        '<br style="clear:left">' +
-        '<input type="button" id="clear" value="Clear">' +
-        '<br style="clear:left">'),
+    el: '#text-view',
     events: {
         'click #clear': 'onClear',
         'keypress #text1': 'onKeypress'
     },
     initialize: function () {
+        this.template = Handlebars.compile($("#text-view-template").html());
         this.render();
     },
     render: function () {
@@ -134,11 +126,9 @@ LastWord.Views.Text = Backbone.View.extend({
 });
 
 LastWord.Views.LastWord = Backbone.View.extend({
-    el: '#lastword_view',
-    template: _.template(
-        '<p>Last word:</p>' +
-        '<textarea id="last" readonly>{{lastWord}}</textarea>'),
+    el: '#lastword-view',
     initialize: function () {
+        this.template = Handlebars.compile($("#lastword-view-template").html());
         this.listenTo(this.model, 'change', this.render);
         this.render();
     },
@@ -149,14 +139,11 @@ LastWord.Views.LastWord = Backbone.View.extend({
 });
 
 LastWord.Views.Thesaurus = Backbone.View.extend({
-    el: '#thesaurus_view',
-    template: function() {
-        return '';
-    },
+    el: '#thesaurus-view',
     initialize: function () {
         Handlebars.registerPartial('word', $("#word-partial").html());
 
-        this.template = Handlebars.compile($("#thesaurus-template").html());
+        this.template = Handlebars.compile($("#thesaurus-view-template").html());
         this.listenTo(this.model, 'change', this.render);
         this.render();
     },

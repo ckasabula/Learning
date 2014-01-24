@@ -6,6 +6,24 @@
 <script src="/scripts/jquery-cookie/jquery.cookie.js"></script>
 <script type="text/javascript" src="/LastWord2.js"></script>          
 
+<script id="apikey-view-template" type="text/x-handlebars-template">
+    <p>Enter <a target="_blank" href="http://words.bighugelabs.com/">Big Huge Thesaurus</a> API key here:</p>
+    <textarea id="apikey", autofocus>{{apiKey}}</textarea>
+</script>
+
+<script id="text-view-template" type="text/x-handlebars-template">
+    <p>Enter text here:</p>
+    <textarea id="text1" autofocus></textarea>
+    <br style="clear:left">
+    <input type="button" id="clear" value="Clear">
+    <br style="clear:left">
+</script>
+
+<script id="lastword-view-template" type="text/x-handlebars-template">
+    <p>Last word:</p>
+    <textarea id="last" readonly>{{lastWord}}</textarea>
+</script>
+
 <script id="word-partial" type="text/x-handlebars-template">
     <div>
         {{#if syn}}
@@ -51,8 +69,7 @@
     </div>
 </script>
 
-
-<script id="thesaurus-template" type="text/x-handlebars-template">
+<script id="thesaurus-view-template" type="text/x-handlebars-template">
 <h2>Thesaurus</h2>
 {{#if noun}}
     <h3>Noun</h3>
@@ -77,11 +94,11 @@
 <body>
     <h2>Last Word (backbone)</h2>
     <div id="left">
-        <div id="apikey_view"></div>
-        <div id="text_view"></div>
-        <div id="lastword_view"></div>
+        <div id="apikey-view"></div>
+        <div id="text-view"></div>
+        <div id="lastword-view"></div>
     </div>
     <div id="right">
-        <div id="thesaurus_view"></div>
+        <div id="thesaurus-view"></div>
     </div>
 </body>
