@@ -154,6 +154,8 @@ LastWord.Views.Thesaurus = Backbone.View.extend({
         return '';
     },
     initialize: function () {
+        Handlebars.registerPartial('word', $("#word-partial").html());
+
         this.template = Handlebars.compile($("#thesaurus-template").html());
         this.listenTo(this.model, 'change', this.render);
         this.render();

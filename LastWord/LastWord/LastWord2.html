@@ -6,52 +6,65 @@
 <script src="/scripts/jquery-cookie/jquery.cookie.js"></script>
 <script type="text/javascript" src="/LastWord2.js"></script>          
 
-<script id="thesaurus-template" type="text/x-handlebars-template">
-<h2>Thesaurus</h2>
-{{#if noun}}
-<h3>Noun</h3>
+<script id="word-partial" type="text/x-handlebars-template">
     <div>
-        {{#if noun.syn}}
+        {{#if syn}}
             <div>
             <p><i>Synonyms</i></p>
             <ul>
-                {{#each noun.syn}}
+                {{#each syn}}
                 <li>{{this}}</li>
                 {{/each}}
             </ul>
             </div>
         {{/if}}
-        {{#if noun.ant}}
+        {{#if ant}}
             <div>
             <p><i>Antonyms</i></p>
             <ul>
-                {{#each noun.ant}}
+                {{#each ant}}
                 <li>{{this}}</li>
                 {{/each}}
             </ul>
             </div>
         {{/if}}
-        {{#if noun.rel}}
+        {{#if rel}}
             <div>
             <p><i>Related Terms</i></p>
             <ul>
-                {{#each noun.rel}}
+                {{#each rel}}
                 <li>{{this}}</li>
                 {{/each}}
             </ul>
             </div>
         {{/if}}
-        {{#if noun.sim}}
+        {{#if sim}}
             <div>
             <p><i>Similar Items</i></p>
             <ul>
-                {{#each noun.sim}}
+                {{#each sim}}
                 <li>{{this}}</li>
                 {{/each}}
             </ul>
             </div>
         {{/if}}
     </div>
+</script>
+
+
+<script id="thesaurus-template" type="text/x-handlebars-template">
+<h2>Thesaurus</h2>
+{{#if noun}}
+    <h3>Noun</h3>
+    {{> word noun}}
+{{/if}}
+{{#if verb}}
+    <h3>Verb</h3>
+    {{> word verb}}
+{{/if}}
+{{#if adjective}}
+    <h3>Adjective</h3>
+    {{> word adjective}}
 {{/if}}
 </script>
 
